@@ -1,32 +1,50 @@
 <template>
   <v-app>
-    <v-container fluid tag="section">
-      <v-row justify="center">
-        <v-col cols="12" md="4">
+    <v-container fluid fill-height class="background-image">
+      <v-row justify="center" align="center">
+        <v-col cols="12" md="4" lg="3">
           <base-material-card>
             <template v-slot:heading>
-              <div class="display-2 font-weight-light text-center">Login</div>
+              <div class="display-2 font-weight-bold text-center">Login</div>
             </template>
 
             <v-form>
               <v-container>
-                <v-row>
-                  <v-col cols="12" md="12">
-                    <v-text-field class="purple-input" label="Usuário">
-                      <v-icon slot="prepend">mdi-email</v-icon>
-                    </v-text-field>
-                  </v-col>
+                <validation-observer ref="obs">
+                  <v-row>
+                    <v-col cols="12" md="12">
+                      <validation-provider name="userName" rules="required">
+                        <v-text-field
+                          v-model="userName"
+                          slot-scope="{errors, valid}"
+                          prepend-icon="mdi-email"
+                          label="Usuário"
+                          :error-messages="errors"
+                          :success="valid"
+                          required
+                        />
+                      </validation-provider>
+                    </v-col>
 
-                  <v-col cols="12" md="12">
-                    <v-text-field class="purple-input" label="Senha">
-                      <v-icon slot="prepend">mdi-lock</v-icon>
-                    </v-text-field>
-                  </v-col>
+                    <v-col cols="12" md="12">
+                      <validation-provider name="password" rules="required">
+                        <v-text-field
+                          v-model="password"
+                          slot-scope="{errors, valid}"
+                          prepend-icon="mdi-lock"
+                          label="Senha"
+                          :error-messages="errors"
+                          :success="valid"
+                          required
+                        />
+                      </validation-provider>
+                    </v-col>
 
-                  <v-col cols="12" class="text-right">
-                    <v-btn color="success" class="mr-0">Entrar</v-btn>
-                  </v-col>
-                </v-row>
+                    <v-col cols="12" class="text-right">
+                      <v-btn color="success" class="mr-0" @click="singUp">Entrar</v-btn>
+                    </v-col>
+                  </v-row>
+                </validation-observer>
               </v-container>
             </v-form>
           </base-material-card>
@@ -38,6 +56,23 @@
 
 <script>
 export default {
-  //
+  data() {
+    return {
+      userName: "",
+      password: ""
+    };
+  },
+  methods: {
+    singUp() {
+      this.$refs.obs.validate();
+    }
+  }
 };
 </script>
+
+<style lang="scss">
+.background-image {
+  background-image: url("../../src/assets/login.jpg");
+  background-size: cover;
+}
+</style>

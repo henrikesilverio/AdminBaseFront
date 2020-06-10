@@ -1,0 +1,9 @@
+{
+    "fields": {
+        "userName": "Usuário",
+        "password": "Senha"
+    },
+    "messages": {
+        "required": "O campo {_field_} é obrigatório"
+    }
+}
