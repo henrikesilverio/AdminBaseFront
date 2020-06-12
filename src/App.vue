@@ -9,6 +9,6 @@ export default {
 </script>
 <style lang="scss">
 #app, html {
-  overflow: hidden !important;
+  overflow: auto !important;
 }
 </style>

@@ -1,9 +1,14 @@
 {
     "fields": {
+        "email": "Email",
+        "password": "Senha",
         "userName": "Usuário",
-        "password": "Senha"
+        "newPassword": "Nova senha",
+        "confirmPassword": "Confirma senha"
     },
     "messages": {
+        "confirmed": "A {_field_} deve ser igual",
+        "email": "O campo {_field_} está inválido",
         "required": "O campo {_field_} é obrigatório"
     }
 }

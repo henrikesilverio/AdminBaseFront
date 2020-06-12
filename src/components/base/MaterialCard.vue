@@ -79,7 +79,7 @@
     <template v-if="$slots.actions">
       <v-divider class="mt-2" />
 
-      <v-card-actions class="pb-0">
+      <v-card-actions>
         <slot name="actions" />
       </v-card-actions>
     </template>

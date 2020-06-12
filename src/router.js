@@ -9,17 +9,25 @@ const router = new Router({
   routes: [
     {
       path: '',
-      component: () => import('@/views/Login'),
-      // children: [
-      //   {
-      //     name: 'Login',
-      //     path: '',
-      //     component: () => import('@/views/Login'),
-      //     meta: {
-      //       guest: true,
-      //     },
-      //   }
-      // ]
+      component: () => import('@/views/authentication/Index'),
+      children: [
+        {
+          name: 'Login',
+          path: '',
+          component: () => import('@/views/authentication/pages/Login'),
+          meta: {
+            guest: true,
+          },
+        },
+        {
+          name: 'NewPassword',
+          path: '/new-password',
+          component: () => import('@/views/authentication/pages/NewPassword'),
+          meta: {
+            guest: true,
+          },
+        }
+      ]
     },
     {
       path: '/a',
