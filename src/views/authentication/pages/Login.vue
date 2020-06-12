@@ -103,6 +103,7 @@ export default {
       } else {
         this.$refs.formReset.validate();
       }
+      console.log(this.$api);
     },
     toogleScreen() {
       this.isLoginScreen = !this.isLoginScreen;
