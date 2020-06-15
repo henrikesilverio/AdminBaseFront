@@ -11,6 +11,12 @@ export default new Vuex.Store({
     isLogin: false,
     token: null,
     user: null,
+    starLoading: false,
+    notification: {
+      show: false,
+      color: "info",
+      message: ""
+    }
   },
   mutations: {
     SET_BAR_IMAGE(state, payload) {
@@ -19,6 +25,12 @@ export default new Vuex.Store({
     SET_DRAWER(state, payload) {
       state.drawer = payload
     },
+    SET_NOTIFICATION(state, payload) {
+      state.notification = payload
+    },
+    SET_LOADING(state, payload) {
+      state.starLoading = payload
+    },
     resetState(state) {
       state.isLogin = false;
       state.token = null;
@@ -26,6 +38,26 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    NOTIFICATION_ERROR({ commit }, message) {
+      commit('SET_NOTIFICATION', {
+        show: true,
+        color: "error",
+        message: message
+      });
+    },
+    NOTIFICATION_INFO({ commit }, message) {
+      commit('SET_NOTIFICATION', {
+        show: true,
+        color: "info",
+        message: message
+      });
+    },
+    SHOW_LOADING({ commit }) {
+      commit('SET_LOADING', true);
+    },
+    HIDE_LOADING({ commit }) {
+      commit('SET_LOADING', false);
+    },
     clearState({ commit }) {
       commit('resetState');
     },

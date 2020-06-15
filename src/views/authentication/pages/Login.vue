@@ -97,25 +97,47 @@ export default {
     };
   },
   methods: {
-    sendData() {
-      if (this.isLoginScreen) {
-        this.$refs.formLogin.validate();
-      } else {
-        this.$refs.formReset.validate();
+    async sendData() {
+      if (this.isLoginScreen && (await this.$refs.formLogin.validate())) {
+        this.$api.auth
+          .authentication({ email: this.userName, password: this.password })
+          .then(data => {
+            localStorage.setItem("authtoken", data.token.token);
+            this.$router.push("dashboard");
+          })
+          .catch(error => {
+            this.$store.dispatch("NOTIFICATION_ERROR", error.message);
+          });
+      } else if (
+        !this.isLoginScreen &&
+        (await this.$refs.formReset.validate())
+      ) {
+        this.$api.auth
+          .forgotPassword({ email: this.userName })
+          .then(() => {
+            this.$store.dispatch(
+              "NOTIFICATION_INFO",
+              "Em breve você receberá um e-mail para redefinir sua senha."
+            );
+          })
+          .catch(error => {
+            this.$store.dispatch("NOTIFICATION_ERROR", error.message);
+          });
       }
-      console.log(this.$api);
     },
     toogleScreen() {
       this.isLoginScreen = !this.isLoginScreen;
       if (this.isLoginScreen) {
-        this.$refs.formReset.reset();
         this.titleHeading = "Login";
         this.titleFirstButton = "Esqueceu sua senha?";
         this.titleSecondButton = "Entrar";
+        this.userName = "";
+        this.$refs.formReset.reset();
       } else {
         this.titleHeading = "Redefinir senha";
         this.titleFirstButton = "Lembrei minha senha!";
         this.titleSecondButton = "Enviar";
+        this.userName = "";
         this.$refs.formLogin.reset();
       }
     }

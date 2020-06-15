@@ -30,7 +30,7 @@ const router = new Router({
       ]
     },
     {
-      path: '/a',
+      path: '/',
       component: () => import('@/views/dashboard/Index'),
       children: [
         // Dashboard
